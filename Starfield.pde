@@ -50,7 +50,7 @@ class NormalParticle implements Particle
 		myY = y;
 		myColor = 255;
 		myAngle = (int)(Math.random()*360);
-		mySpeed = 8.25;
+		mySpeed = (int)(Math.random()*360);
 	}
 
 	public void move()
