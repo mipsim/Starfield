@@ -1,4 +1,4 @@
-Particle [] particles = new Particle[300];
+Particle [] particles = new Particle[5000];
 int x = 400;
 int y = 400;
 
@@ -26,7 +26,6 @@ void draw()
 		particles[i].move();
 		particles[i].show();
 	}
-
 }
 
 
@@ -55,7 +54,7 @@ class NormalParticle implements Particle
 		myColor2 = (int)(Math.random()*255);
 		myColor3 = (int)(Math.random()*255);
 		myAngle = (Math.random()*360+1);
-		mySpeed = (Math.random()*40+1);
+		mySpeed = (Math.random()*15+1);
 	}
 
 	public void move()
@@ -87,7 +86,7 @@ class OddballParticle implements Particle
 		myColor2 = (int)(Math.random()*255);
 		myColor3 = (int)(Math.random()*255);
 		myAngle = (int)(Math.random()*5+1);
-		mySpeed = (Math.random()*10+1);
+		mySpeed = (Math.random()*5+1);
 	}
 
 	public void move()
@@ -109,7 +108,7 @@ class OddballParticle implements Particle
 
 class JumboParticle extends NormalParticle
 {
-	public void show()
+	void show()
 	{
 		{
 		fill(myColor);
