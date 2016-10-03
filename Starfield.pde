@@ -1,4 +1,4 @@
-Particle [] particles = new Particle[5000];
+Particle [] particles = new Particle[10000];
 int x = 400;
 int y = 400;
 
@@ -10,12 +10,6 @@ void setup()
 {
 	size(800,800);
 	noStroke();
-	for (int i = 0; i < particles.length; i++)
-	{
-		particles[i] = new NormalParticle();
-		particles[0] = new OddballParticle();
-		particles[1] = new JumboParticle();
-	}
 }
 
 void draw()
@@ -23,9 +17,14 @@ void draw()
 	background(0);
 	for (int i = 0; i < particles.length; i++)
 	{
+		particles[i] = new NormalParticle();
+		particles[0] = new OddballParticle();
+		particles[1] = new JumboParticle();
 		particles[i].move();
 		particles[i].show();
 	}
+	
+	
 }
 
 
@@ -44,8 +43,8 @@ interface Particle
 
 class NormalParticle implements Particle
 {
-	double myX, myY, myAngle, mySpeed;
-	int myColor, myColor2, myColor3;
+	double myX, myY, mySpeed;
+	int myAngle, myColor, myColor2, myColor3;
 	NormalParticle()
 	{
 		myX = x;
@@ -53,14 +52,14 @@ class NormalParticle implements Particle
 		myColor = (int)(Math.random()*255);
 		myColor2 = (int)(Math.random()*255);
 		myColor3 = (int)(Math.random()*255);
-		myAngle = (Math.random()*360+1);
-		mySpeed = (Math.random()*15+1);
+		myAngle = (int)(Math.random()*120+1);
+		mySpeed = (Math.random()*100+1);
 	}
 
 	public void move()
 	{
-		myX = myX + Math.cos(myAngle)*mySpeed;
-		myY = myY + Math.sin(myAngle)*mySpeed;
+		myX = myX + (Math.cos(myAngle)*mySpeed)*24;
+		myY = myY + (Math.sin(myAngle)*mySpeed)*24;
 	}
 
 	public void show()
@@ -76,8 +75,8 @@ class NormalParticle implements Particle
 
 class OddballParticle implements Particle
 {
-	double myX, myY, mySpeed;
-	int myAngle, myColor, myColor2, myColor3;
+	double myX, myY, myAngle, mySpeed;
+	int myColor, myColor2, myColor3;
 	OddballParticle()
 	{
 		myX = x;
@@ -85,14 +84,14 @@ class OddballParticle implements Particle
 		myColor = (int)(Math.random()*255);
 		myColor2 = (int)(Math.random()*255);
 		myColor3 = (int)(Math.random()*255);
-		myAngle = (int)(Math.random()*5+1);
-		mySpeed = (Math.random()*5+1);
+		myAngle = (Math.random()*120+1);
+		mySpeed = (int)(Math.random()*5+1);
 	}
 
 	public void move()
 	{
-		myX = myX + Math.cos(myAngle)*mySpeed;
-		myY = myY + Math.sin(myAngle)*mySpeed;
+		myX = myX + (Math.cos(myAngle)*mySpeed)*50;
+		myY = myY + (Math.sin(myAngle)*mySpeed)*50;
 	}
 
 	public void show()
