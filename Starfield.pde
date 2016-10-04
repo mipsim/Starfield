@@ -1,4 +1,4 @@
-Particle [] particles = new Particle[10000];
+Particle [] particles = new Particle[1500];
 int x = 400;
 int y = 400;
 
@@ -10,6 +10,21 @@ void setup()
 {
 	size(800,800);
 	noStroke();
+	for (int i = 0; i < particles.length; i++)
+	{
+		if( i < 1000)
+		{
+			particles[i] = new NormalParticle();	
+		}	
+		else if (i < 1490) 
+		{
+			particles[i] = new OddballParticle();
+		}
+		else
+		{
+			particles[i] = new JumboParticle();	
+		}
+	}
 }
 
 void draw()
@@ -17,14 +32,9 @@ void draw()
 	background(0);
 	for (int i = 0; i < particles.length; i++)
 	{
-		particles[i] = new NormalParticle();
-		particles[0] = new OddballParticle();
-		particles[1] = new JumboParticle();
 		particles[i].move();
-		particles[i].show();
+		particles[i].show();		
 	}
-	
-	
 }
 
 
@@ -52,14 +62,14 @@ class NormalParticle implements Particle
 		myColor = (int)(Math.random()*255);
 		myColor2 = (int)(Math.random()*255);
 		myColor3 = (int)(Math.random()*255);
-		myAngle = (int)(Math.random()*120+1);
-		mySpeed = (Math.random()*100+1);
+		myAngle = (int)(Math.random()*180+1);
+		mySpeed = (Math.random()*10+1);
 	}
 
 	public void move()
 	{
-		myX = myX + (Math.cos(myAngle)*mySpeed)*24;
-		myY = myY + (Math.sin(myAngle)*mySpeed)*24;
+		myX = myX + Math.cos(myAngle)*mySpeed;
+		myY = myY + Math.sin(myAngle)*mySpeed;
 	}
 
 	public void show()
@@ -75,8 +85,8 @@ class NormalParticle implements Particle
 
 class OddballParticle implements Particle
 {
-	double myX, myY, myAngle, mySpeed;
-	int myColor, myColor2, myColor3;
+	double myX, myY, mySpeed;
+	int myAngle, myColor, myColor2, myColor3;
 	OddballParticle()
 	{
 		myX = x;
@@ -84,20 +94,20 @@ class OddballParticle implements Particle
 		myColor = (int)(Math.random()*255);
 		myColor2 = (int)(Math.random()*255);
 		myColor3 = (int)(Math.random()*255);
-		myAngle = (Math.random()*120+1);
-		mySpeed = (int)(Math.random()*5+1);
+		myAngle = (int)(Math.random()*180+1);
+		mySpeed = (Math.random()*10+1);
 	}
 
 	public void move()
 	{
-		myX = myX + (Math.cos(myAngle)*mySpeed)*50;
-		myY = myY + (Math.sin(myAngle)*mySpeed)*50;
+		myX = myX + Math.cos(myAngle)*mySpeed;
+		myY = myY + Math.sin(myAngle)*mySpeed;
 	}
 
 	public void show()
 	{
 		fill(myColor,myColor2,myColor3);
-		rect((float)myX, (float)myY, 30, 30);
+		rect((float)myX, (float)myY, 10, 10);
 	}
 }
 
@@ -110,9 +120,9 @@ class JumboParticle extends NormalParticle
 	void show()
 	{
 		{
-		fill(myColor);
-		ellipse((float)myX, (float)myY, 50, 50);
-	}
+		fill(myColor,myColor2,myColor3);
+		ellipse((float)myX, (float)myY, 30, 30);
+		}
 	}
 }
 
