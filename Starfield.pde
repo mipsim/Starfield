@@ -53,10 +53,11 @@ interface Particle
 
 class NormalParticle implements Particle
 {
-	double myX, myY, mySpeed;
+	double myX, myY, mySpeed, limit;
 	int myAngle, myColor, myColor2, myColor3;
 	NormalParticle()
 	{
+		limit = 0;
 		myX = x;
 		myY = y;
 		myColor = (int)(Math.random()*255);
@@ -68,14 +69,36 @@ class NormalParticle implements Particle
 
 	public void move()
 	{
-		myX = myX + Math.cos(myAngle)*mySpeed;
-		myY = myY + Math.sin(myAngle)*mySpeed;
+		//	if ( limit < 0 && limit > -100 )
+		//{
+		//	limit = limit - 1;
+		//	myX = myX - Math.cos(myAngle)*mySpeed;
+		//	myY = myY - Math.sin(myAngle)*mySpeed;
+		//}
+		//else if (limit < -100 )
+		//{
+		//	limit = 0;		
+		//}
+
+		if ( limit > -1 && limit < 100 )
+		{
+			limit = limit + 1;
+			myX = myX + Math.cos(myAngle)*mySpeed;
+			myY = myY + Math.sin(myAngle)*mySpeed;
+		}
+		else 
+		{
+			myX = myX - Math.cos(myAngle)*mySpeed;
+			myY = myY - Math.sin(myAngle)*mySpeed;
+		}
+
+	
 	}
 
 	public void show()
 	{
 		fill(myColor,myColor2,myColor3);
-		ellipse((float)myX, (float)myY, 6, 6);
+		ellipse((float)myX, (float)myY, 8, 8);
 	}
 }
 
@@ -100,14 +123,14 @@ class OddballParticle implements Particle
 
 	public void move()
 	{
-		myX = myX + Math.cos(myAngle)*mySpeed;
-		myY = myY + Math.sin(myAngle)*mySpeed;
+		myX = myX + (int)(Math.random()*100-50);
+		myY = myY + (int)(Math.random()*100-50);
 	}
 
 	public void show()
 	{
 		fill(myColor,myColor2,myColor3);
-		rect((float)myX, (float)myY, 10, 10);
+		rect((float)myX, (float)myY, 9, 9);
 	}
 }
 
