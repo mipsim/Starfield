@@ -1,6 +1,6 @@
 Particle [] particles = new Particle[1500];
-int x = 400;
-int y = 400;
+int x = 375;
+int y = 375;
 
 
 ///////////////////////////////////////////////////
@@ -8,21 +8,21 @@ int y = 400;
 
 void setup()
 {
-	size(800,800);
+	size(750,750);
 	noStroke();
 	for (int i = 0; i < particles.length; i++)
 	{
-		if( i < 1000)
+		if( i < 400)
 		{
-			particles[i] = new NormalParticle();	
+			particles[i] = new OddballParticle();	
 		}	
-		else if (i < 1490) 
+		else if (i < 405) 
 		{
-			particles[i] = new OddballParticle();
+			particles[i] = new JumboParticle();
 		}
 		else
 		{
-			particles[i] = new JumboParticle();	
+			particles[i] = new NormalParticle();	
 		}
 	}
 }
@@ -63,42 +63,41 @@ class NormalParticle implements Particle
 		myColor = (int)(Math.random()*255);
 		myColor2 = (int)(Math.random()*255);
 		myColor3 = (int)(Math.random()*255);
-		myAngle = (int)(Math.random()*180+1);
-		mySpeed = (Math.random()*10+1);
+		myAngle = (int)(Math.random()*360+1);
+		mySpeed = (Math.random()*1+1);
 	}
 
 	public void move()
 	{
-		//	if ( limit < 0 && limit > -100 )
-		//{
-		//	limit = limit - 1;
-		//	myX = myX - Math.cos(myAngle)*mySpeed;
-		//	myY = myY - Math.sin(myAngle)*mySpeed;
-		//}
-		//else if (limit < -100 )
-		//{
-		//	limit = 0;		
-		//}
+		if (limit == 300)
+		{
+			limit = -1;
+		}
+	
+		if (limit == -300)
+		{
+			limit = 0;
+		}
 
-		if ( limit > -1 && limit < 100 )
+		if ( limit > -1 && limit < 300 )
 		{
 			limit = limit + 1;
-			myX = myX + Math.cos(myAngle)*mySpeed;
-			myY = myY + Math.sin(myAngle)*mySpeed;
-		}
-		else 
-		{
-			myX = myX - Math.cos(myAngle)*mySpeed;
-			myY = myY - Math.sin(myAngle)*mySpeed;
+			myX = myX + ((Math.random())*(Math.cos(myAngle)*mySpeed))*0.5;
+			myY = myY + ((Math.sin(myAngle)*mySpeed))*0.5;
 		}
 
-	
+		if ( limit < 0 && limit > -300 )
+		{
+			limit = limit - 1;
+			myX = myX - ((Math.cos(myAngle)*mySpeed))*0.5;
+			myY = myY - ((Math.sin(myAngle)*mySpeed))*0.5;
+		}
 	}
 
 	public void show()
 	{
-		fill(myColor,myColor2,myColor3);
-		ellipse((float)myX, (float)myY, 8, 8);
+		fill(255);
+		ellipse((float)myX, (float)myY, 3, 3);
 	}
 }
 
@@ -130,7 +129,15 @@ class OddballParticle implements Particle
 	public void show()
 	{
 		fill(myColor,myColor2,myColor3);
-		rect((float)myX, (float)myY, 9, 9);
+		rect((float)myX, (float)myY, 5, 5);
+	}
+
+	void boundary()
+	{
+		if (x > 750)
+		x = 0;
+		else if (y > 750)
+		y = 0;
 	}
 }
 
@@ -143,8 +150,8 @@ class JumboParticle extends NormalParticle
 	void show()
 	{
 		{
-		fill(myColor,myColor2,myColor3);
-		ellipse((float)myX, (float)myY, 30, 30);
+			fill(myColor,myColor2,myColor3);
+			ellipse((float)myX, (float)myY, 20, 20);
 		}
 	}
 }
